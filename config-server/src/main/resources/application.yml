@@ -1,0 +1,13 @@
+server:
+  port: 8089
+spring:
+  application:
+    name: config-server
+  # TODO: spring config server load all configs from git repository
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/config

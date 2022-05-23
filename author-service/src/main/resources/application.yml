@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: author
+  config:
+    import: optional:configserver:http://localhost:8089/
+  profiles:
+    active: dev
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+resilience4j:
+  circuitbreaker:
+    instances:
+      findAuthorById:
+        registerHealthIndicator: true
+        permittedNumberOfCallsInHalfOpenState: 1
+        minimumNumberOfCalls: 5
+        waitDurationInOpenState: 10s
+        failureRateThreshold: 50
+        ignoreExceptions:
+          - com.igorcossta.common.exception.AuthorNotFoundException
+          - com.igorcossta.common.exception.AuthorHasNoBookException

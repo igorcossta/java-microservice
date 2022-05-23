@@ -1,0 +1,25 @@
+server:
+  port: 8081
+spring:
+  # initialize mysql database using
+  # docker container run -dp 3307:3306 --name book-mysql -e MYSQL_ROOT_PASSWORD=123 -e MYSQL_DATABASE=book mysql:latest
+  datasource:
+    username: root
+    password: 123
+    url: jdbc:mysql://localhost:3307/book
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
